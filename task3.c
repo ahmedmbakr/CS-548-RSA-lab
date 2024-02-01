@@ -25,9 +25,9 @@ int main()
     BIGNUM *d = BN_new();
     BIGNUM *C = BN_new();
 
-    BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5");
-    BN_hex2bn(&e, "010001");
-    BN_hex2bn(&d, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D");
+    BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5"); // This is the public modulus (part of the public key)
+    BN_hex2bn(&e, "010001"); // This is the public exponent (the other part of the public key)
+    BN_hex2bn(&d, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D"); // The private key d
     BN_hex2bn(&C, "AE452DAD235C88BA4C15A7D81E3082E2F536D90A61ECD4AEC5A02D01B535B4AD"); // This is the encryption value from the previous task 2
 
     // decrypted_M = C^d mod n

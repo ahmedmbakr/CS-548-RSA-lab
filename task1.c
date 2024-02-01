@@ -29,8 +29,8 @@ int main()
     BIGNUM *phi_n = BN_new();
     BIGNUM *d_mul_e = BN_new();
 
-    BN_hex2bn(&p, "F7E75FDC469067FFDC4E847C51F452DF");
-    BN_hex2bn(&q, "E85CED54AF57E53E092113E62F436F4F");
+    BN_hex2bn(&p, "F7E75FDC469067FFDC4E847C51F452DF"); // big prime number
+    BN_hex2bn(&q, "E85CED54AF57E53E092113E62F436F4F"); // big prime number
     BN_hex2bn(&e, "0D88C3");
 
     // n = p * q

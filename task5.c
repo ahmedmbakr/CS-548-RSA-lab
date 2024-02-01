@@ -27,8 +27,8 @@ int main()
     BIGNUM *signature2 = BN_new();
     BIGNUM *generated_M2 = BN_new();
 
-    BN_hex2bn(&n, "AE1CD4DC432798D933779FBD46C6E1247F0CF1233595113AA51B450F18116115");
-    BN_hex2bn(&e, "010001");
+    BN_hex2bn(&n, "AE1CD4DC432798D933779FBD46C6E1247F0CF1233595113AA51B450F18116115"); // This is the public modulus (part of the public key)
+    BN_hex2bn(&e, "010001"); // This is the public exponent (the other part of the public key)
     BN_hex2bn(&M, "4C61756E63682061206D697373696C652E"); // This is the hex value of the message "Launch a missile."
     BN_hex2bn(&signature1, "643D6F34902D9C7EC90CB0B2BCA36C47FA37165C0005CAB026C0542CBDB6802F"); // This is the hex value of the message "Launch a missile."
 

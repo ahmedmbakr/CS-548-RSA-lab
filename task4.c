@@ -27,9 +27,9 @@ int main()
     BIGNUM *signature1 = BN_new();
     BIGNUM *signature2 = BN_new();
 
-    BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5");
-    BN_hex2bn(&e, "010001");
-    BN_hex2bn(&d, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D");
+    BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5"); // This is the public modulus (part of the public key)
+    BN_hex2bn(&e, "010001"); // This is the public exponent (the other part of the public key)
+    BN_hex2bn(&d, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D"); // The private key
     BN_hex2bn(&M1, "41686D656442616B722D3132323930323134206F77657320796F752024323030302E"); // This is the hex value of the message "AhmedBakr-12290214 owes you $2000."
     BN_hex2bn(&M2, "41686D656442616B722D3132323930323134206F77657320796F752024333030302E"); // This is the hex value of the message "AhmedBakr-12290214 owes you $3000."
 

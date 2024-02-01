@@ -5,6 +5,8 @@
 The compilation of this code utilizes the `MakeFile`. To run, open the terminal in this directory as the root directory and type `make`.
 
 After the command finishes the target binary outputs will exist in `outputs` folder. There will exist one binary file for each task. For example, the output binrary file for the first task is `outputs/task1`, and so on.
+To run the code from the first task, type the following in the command line: `make run_task1`.
+Replace `1` in the previous command by any number from `1` to `6` to get the output for that task.
 
 ## Task 1 (Deriving the private key)
 
@@ -14,6 +16,31 @@ However, I will emphasize on the verification of `d`, where it can be verified b
 It is also worth mentioning that to run this task, open the terminal and write `make run_task1`.
 
 ![Alt text](images/task1-output.png)
+
+The important code snippet for this task is shown below:
+
+```python
+    BN_hex2bn(&p, "F7E75FDC469067FFDC4E847C51F452DF"); // big prime number
+    BN_hex2bn(&q, "E85CED54AF57E53E092113E62F436F4F"); // big prime number
+    BN_hex2bn(&e, "0D88C3");
+
+    // n = p * q
+    BN_mul(n, p, q, ctx);
+    
+    // p_minus_1 = p - 1
+    p_minus_1 = BN_dup(p);
+    BN_sub(p_minus_1, p_minus_1, BN_value_one());
+
+    // q_minus_1 = q - 1
+    q_minus_1 = BN_dup(q);
+    BN_sub(q_minus_1, q_minus_1, BN_value_one());
+
+    // phi_n = (p - 1) * (q - 1)
+    BN_mul(phi_n, p_minus_1, q_minus_1, ctx);
+
+    // d = e^-1 mod phi_n
+    BN_mod_inverse(d, e, phi_n, ctx);
+```
 
 ## Task 2 (Encrypting a Message)
 
@@ -28,6 +55,18 @@ The output after executing the program is:
 
 ![Alt text](images/task2-output.png)
 
+The important code snippet for this task is shown below:
+
+```python
+BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5"); // This is the public modulus (part of the public key)
+BN_hex2bn(&e, "010001"); // This is the public exponent (the other part of the public key)
+BN_hex2bn(&d, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D"); // The private key
+BN_hex2bn(&M, "41686D656442616B722D3132323930323134"); // This is the hex value of the message "AhmedBakr-12290214"
+
+// C = M^e mod n
+BN_mod_exp(C, M, e, n, ctx); // The cipher text is stored in C
+```
+
 ## Task 3 (Decrypting a Message)
 
 The code for this task can be found inside `task3.c` file.
@@ -40,6 +79,18 @@ The output of decryption message (the output hex) is translated back to ascii as
 
 ![Alt text](images/hex-to-name.png)
 
+The important code snippet for this task is shown below:
+
+```python
+BN_hex2bn(&n, "DCBFFE3E51F62E09CE7032E2677A78946A849DC4CDDE3A4D0CB81629242FB1A5"); // This is the public modulus (part of the public key)
+BN_hex2bn(&e, "010001"); // This is the public exponent (the other part of the public key)
+BN_hex2bn(&d, "74D806F9F3A62BAE331FFE3F0A68AFE35B3D2E4794148AACBC26AA381CD7D30D"); // The private key d
+BN_hex2bn(&C, "AE452DAD235C88BA4C15A7D81E3082E2F536D90A61ECD4AEC5A02D01B535B4AD"); // This is the encryption value from the previous task 2
+
+// decrypted_M = C^d mod n
+BN_mod_exp(decrypted_M, C, d, n, ctx); // The decrypted text is stored in decrypted_M
+```
+
 ## Task 4 (Signing a Message)
 
 The code for this task can be found inside `task4.c` file.
@@ -49,8 +100,11 @@ The only difference is that we changed the owed amount (only one character in th
 This is to check the effect of changing one character in the text on the output signature.
 As shown in the attached output below that one change in the signed message resulted in a defused change in the signature, which is a great property and it proves that no one can forge the signature of someone on a new message by combining pieces from old messages/signatures pairs.
 
-
 ![Alt text](images/task4-output.png)
+
+The important code snippet for this task is shown in the image below:
+
+![Alt text](images/task4-code-snippet.png)
 
 ## Task 5 (Verifying a Signature)
 
@@ -58,6 +112,10 @@ The code for this task can be found inside `task5.c` file.
 This example shows that a valid signature can be validated successfully, as shown in the first authentic signature resulted in the text: `valid signature`, while a slight change (even one bit change) will result in an `invalid signature` output, as shown in the image below.
 
 ![Alt text](images/task5-output.png)
+
+The important code snippet for this task is shown in the image below:
+
+![Alt text](images/task5-code-snippet.png)
 
 ## Task 6 (Download a certificate from a real web server)
 
