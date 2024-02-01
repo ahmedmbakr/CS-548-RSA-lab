@@ -108,3 +108,16 @@ For summarization purposes, I will copy here all the important values from this 
 - e = `10001`
 - Hash of the certificate's body: `b2825cb7d71ec7093e7ff7026c562a29122de3b4900ed13dad63d1be73706e0d`
 - CA's signature: `04e16e023e0de32346f4e3963505933522020b845de27386d4744ffc1b27af3ecaadc3ce46d6fa0fe271f90d1a9a13b7d50848bd5058b35e20638629ca3ecccc7826e1598f5dca8bbc49316f61bd42ff6162e1223524269b57ebe5000dff40336c46c233770898b27af643f96d48dfbffefa281e7b8acf2d61ff6c8798a42c629abb108cff34487066b76d72c369f9394b683956bda1b36df477f3465b5c19ac4fb3746b8cc5f189cc93fe0c016f8817dc427160e3ed7330429ca92f3ba2788ec86fbad1130cd0c75e8c10fb012e379bdbacf7a1acba7ff892e7cb4144c815f9f3c4bbad515fbedec7ac86079f40ecb90bf6b28bccb5553366ba33c2c4f0a2e9`
+
+The next screenshot shows the output of running `task6.c` file and that the signature is verified at the end.
+Two important notes to consider.
+First, after a close observation of the next screenshot, it will show that the generated hash of the body after decrypting the signature using the public key of the CA as shown in line 39 in `task6.c` file, its output is similar to the hash of the body of the certificate, but it is padded in the beginning with lots of ones.
+That is why, we need to truncate it using this instruction: `BN_mask_bits(generated_M, 265);`.
+
+![Alt text](images/task6-output.png)
+
+Second, all the inputs: n, e, hash of the certificate's body, and CA's signature, are given as input to the program `task6.c` from lines 28 to 32.
+The explanation for each variable is shown in the definition of each variable.
+This can be checked from the following image.
+
+![Alt text](images/task6-code-inputs.png)
